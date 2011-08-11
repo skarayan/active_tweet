@@ -4,7 +4,7 @@ require 'json'
 require 'uri'
 
 class ActiveTweet
-  def initialize(data = [])
+  def initialize(data = nil)
     @data = data
     @hashtag = nil
     @links = false
@@ -29,8 +29,26 @@ class ActiveTweet
 
   def map
     raise ArgumentError.new('No query was specified') if @hashtag.nil?
-    @data = @data.grep /\##{ @hashtag }/
-    @data = @data.map { |tweet| URI.extract(tweet) }.flatten.compact.uniq if @links
+    if @data
+      @data = @data.grep /\##{ @hashtag }/
+    else
+      @data = []
+      hash = fetch
+
+      while @data.count < @limit
+        @data += hash['results'].map { |result| result['text'] }
+        hash = fetch(hash['next_page'])
+      end
+    end
+    @data = @data.map { |tweet| URI.extract(tweet, 'http') }.flatten.compact.uniq if @links
     @data.first(@limit)
+  end
+
+  private
+
+  def fetch(params = URI.escape("?q=##{ @hashtag }"))
+    url = "http://search.twitter.com/search.json#{ params }"
+    json = open(url).read
+    JSON.parse(json)
   end
 end
