@@ -7,6 +7,7 @@ class ActiveTweet
   @links = false
 
   class << self
+    # this is a way to imitate Twitter for testing purposes
     def mock(data)
       tap do
         @data = data
@@ -15,6 +16,7 @@ class ActiveTweet
 
     def find_by_hashtag(hashtag)
       tap do
+        @hashtag = hashtag
       end
     end
 
@@ -26,7 +28,7 @@ class ActiveTweet
 
     def collect
       if @data
-        @data
+        @data = @data.grep /\##{ @hashtag }/
       end
       @data = @data.map { |tweet| URI.extract(tweet) }.flatten.compact.uniq if @links
       @data
