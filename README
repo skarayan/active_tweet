@@ -3,6 +3,7 @@ Hello,
 Thank you for considering me.
 
 Few things to note:
+* I implemented ActiveTweet using BDD/TDD
 * I implemented ActiveTweet similar to ActiveRecord, specially when it comes to chaining
 * I implemented 4 scenarios in cucumber
 * I implemented 2 simple test cases in rspec
@@ -12,6 +13,7 @@ Steps to running the tests:
 * Run "bundle install"
 * Run the cucumber steps using "bundle exec cucumber features"
 * Run the specs using "bundle exec rspec spec"
+* Run from terminal like this: "ruby find_links.rb a_hashtag"
 
 Thank you,
 Sarkis Karayan

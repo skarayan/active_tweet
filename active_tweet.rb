@@ -16,6 +16,7 @@ class ActiveTweet
   end
 
   def find_by_hashtag(hashtag)
+    raise ArgumentError.new('Please provide a valid hashtag') unless hashtag.match(/^\w+$/)
     tap { @hashtag = hashtag }
   end
 
@@ -37,7 +38,7 @@ class ActiveTweet
 
       while @data.count < @limit
         @data += hash['results'].map { |result| result['text'] }
-        hash = fetch(hash['next_page'])
+        hash = fetch(hash['next_page']) rescue break
       end
     end
     @data = @data.map { |tweet| URI.extract(tweet, 'http') }.flatten.compact.uniq if @links
