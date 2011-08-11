@@ -23,8 +23,12 @@ When /^I search for \#(\w+)$/ do |hashtag|
   @tweets = @tweets.find_by_hashtag(hashtag)
 end
 
+When /^limit to (\d+) results$/ do |count|
+  @tweets = @tweets.limit(count.to_i)
+end
+
 Then /^I should get (\d+) tweets$/ do |number_of_tweets|
-  @tweets.collect.count.should == number_of_tweets.to_i
+  @tweets.map.count.should == number_of_tweets.to_i
 end
 
 When /^filter for links$/ do
@@ -32,5 +36,5 @@ When /^filter for links$/ do
 end
 
 Then /^I should get (\d+) links$/ do |number_of_links|
-  @tweets.collect.count.should == number_of_links.to_i
+  @tweets.map.count.should == number_of_links.to_i
 end

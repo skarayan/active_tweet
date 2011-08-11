@@ -8,6 +8,12 @@ Feature: Search Twitter by hash tag
     When I search for #hello
     Then I should get 100 tweets
 
+  Scenario: Search with a limit
+    Given that there are at least 100 tweets for the term #hello
+    When I search for #hello
+    And limit to 50 results
+    Then I should get 50 tweets
+
   Scenario: Search for links inside tweets
     Given that there are 20 links and a few tweets associated with the term #hello
     When I search for #hello
