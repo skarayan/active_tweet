@@ -1,0 +1,18 @@
+Hello,
+
+Thank you for considering me.
+
+Few things to note:
+* I implemented ActiveTweet similar to ActiveRecord, specially when it comes to chaining
+* I implemented 4 scenarios in cucumber
+* I implemented 2 simple test cases in rspec
+
+Steps to running the tests:
+* Clone this git repo
+* Run "bundle install"
+* Run the cucumber steps using "bundle exec cucumber features"
+* Run the specs using "bundle exec rspec spec"
+
+Thank you,
+Sarkis Karayan
+
