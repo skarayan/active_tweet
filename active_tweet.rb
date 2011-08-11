@@ -28,7 +28,7 @@ class ActiveTweet
       if @data
         @data
       end
-      @data.map! { |tweet| URI.extract(tweet) }.flatten!.compact! if @links
+      @data = @data.map { |tweet| URI.extract(tweet) }.flatten.compact.uniq if @links
       @data
     end
   end

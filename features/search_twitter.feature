@@ -13,3 +13,9 @@ Feature: Search Twitter by hash tag
     When I search for #hello
     And filter for links
     Then I should get 20 links
+
+  Scenario: Search for unique links inside tweets
+    Given that there are 15 unique links out of 20 total associated with the term #hello
+    When I search for #hello
+    And filter for links
+    Then I should get 15 links
