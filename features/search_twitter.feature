@@ -8,3 +8,8 @@ Feature: Search Twitter by hash tag
     When I search for #hello
     Then I should get 100 tweets
 
+  Scenario: Search for links inside tweets
+    Given that there are 20 links and a few tweets associated with the term #hello
+    When I search for #hello
+    And filter for links
+    Then I should get 20 links

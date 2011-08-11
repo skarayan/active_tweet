@@ -1,8 +1,11 @@
 require 'rubygems'
 require 'open-uri'
 require 'json'
+require 'uri'
 
 class ActiveTweet
+  @links = false
+
   class << self
     def mock(data)
       tap do
@@ -15,10 +18,18 @@ class ActiveTweet
       end
     end
 
+    def links
+      tap do
+        @links = true
+      end
+    end
+
     def collect
       if @data
         @data
       end
+      @data.map! { |tweet| URI.extract(tweet) }.flatten!.compact! if @links
+      @data
     end
   end
 end
